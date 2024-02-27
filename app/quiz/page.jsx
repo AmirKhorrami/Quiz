@@ -9,31 +9,32 @@ const Quiz = () => {
   const [checked, setChecked] = useState(false);
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
   const [showResult, setShowResult] = useState(false);
-  const [answers, setAnswers] = useState([]);
-  const [correctAnswer, setCorrectAnswer] = useState("");
+  // const [answers, setAnswers] = useState([]);
+  // const [correctAnswer, setCorrectAnswer] = useState("");
   const [result, setResult] = useState({
     score: 0,
     correctAnswers: 0,
     wrongAnswers: 0,
   });
   const { questions } = quiz;
+  const { answers, correctAnswer } = questions[activeQuestion];
 
-  useEffect(() => {
-    getData();
-  }, [result]);
+  // useEffect(() => {
+  //   getData();
+  // }, [result]);
 
-  function getData() {
-    setAnswers(questions[activeQuestion].answers);
-    setCorrectAnswer(questions[activeQuestion].correctAnswer);
-  }
+  // function getData() {
+  //   setAnswers(questions[activeQuestion].answers);
+  //   setCorrectAnswer(questions[activeQuestion].correctAnswer);
+  // }
 
-  async function timeDelay() {
-    const delay = 1 + Math.floor(Math.random() * 5);
-    await timeOut(delay * 1000);
-  }
-  function timeOut(delay) {
-    return new Promise((time) => setTimeout(time, delay));
-  }
+  // async function timeDelay() {
+  //   const delay = 1 + Math.floor(Math.random() * 5);
+  //   await timeOut(delay * 1000);
+  // }
+  // function timeOut(delay) {
+  //   return new Promise((time) => setTimeout(time, delay));
+  // }
 
   const onAnswerSelected = (answer, index) => {
     setChecked(true);
@@ -58,8 +59,8 @@ const Quiz = () => {
     );
     if (activeQuestion !== questions.length - 1) {
       setActiveQuestion((prev) => prev + 1);
-      setCorrectAnswer("");
-      setAnswers([]);
+      // setCorrectAnswer("");
+      // setAnswers([]);
     } else {
       setActiveQuestion(0);
       setShowResult(true);
@@ -67,6 +68,7 @@ const Quiz = () => {
     setChecked(false);
   };
 
+  // throw new Error();
   return (
     <div className="container">
       <h1>صفحه آزمون</h1>
@@ -93,6 +95,7 @@ const Quiz = () => {
               >
                 <Suspense fallback={<Loading count={1} />}>
                   <span>{timeDelay().then(() => item)}</span>
+                  <span>{item}</span>
                 </Suspense>
               </li>
             ))} */}
