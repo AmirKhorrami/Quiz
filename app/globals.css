@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html,
+body {
+    overflow-x: hidden;
+    background-color: #000925;
+}
+
+main {
+    padding: 1rem;
+}
+
+h1,
+h2 {
+    color: #eee;
+}
+
+h3 {
+    padding-bottom: 2rem;
+    color: #000105;
+    font-size: 1.8rem;
+}
+
+button {
+    padding: 16px 8px;
+    width: 100%;
+    margin-top: 12px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #808080;
+    color: #f8f8f8;
+}
+
+.btn-disabled {
+    background-color: lightgray;
+}
+
+li {
+    list-style-type: none;
+    cursor: pointer;
+    margin: 9px 0;
+    padding: 16px 8px;
+    color: #000105;
+    border: 1px solid lightgray;
+}
+
+.li-hover:hover {
+    background-color: #d8d8d8;
+    columns: #fff;
+}
+
+.li-selected {
+    color: #fff;
+    background-color: #000925;
+}
+
+.container {
+    max-width: 740px;
+    width: 100%;
+    margin: auto;
+    padding: 1rem;
+}
+
+.quiz-container {
+    background-color: #f8f8f8;
+    padding: 1rem;
+    margin-top: 2rem;
+    border-radius: 4px;
+}
+
+.container p {
+    padding: 8px 0;
+}
