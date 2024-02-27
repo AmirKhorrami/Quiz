@@ -1,6 +1,7 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { quiz } from "../data";
+import Loading from "./loading";
 
 const Quiz = () => {
   const [activeQuestion, setActiveQuestion] = useState(0);
@@ -8,13 +9,20 @@ const Quiz = () => {
   const [checked, setChecked] = useState(false);
   const [selectedAnswerIndex, setSelectedAnswerIndex] = useState(null);
   const [showResult, setShowResult] = useState(false);
+  const [answers, setAnswers] = useState([]);
+  const [correctAnswer, setCorrectAnswer] = useState("");
   const [result, setResult] = useState({
     score: 0,
     correctAnswers: 0,
     wrongAnswers: 0,
   });
   const { questions } = quiz;
-  const { answers, correctAnswer } = questions[activeQuestion];
+  useEffect(() => {
+    setTimeout(() => {
+      setAnswers(questions[activeQuestion].answers);
+      setCorrectAnswer(questions[activeQuestion].correctAnswer);
+    }, 2000);
+  }, [result]);
   const onAnswerSelected = (answer, index) => {
     setChecked(true);
     setSelectedAnswerIndex(index);
@@ -38,6 +46,8 @@ const Quiz = () => {
     );
     if (activeQuestion !== questions.length - 1) {
       setActiveQuestion((prev) => prev + 1);
+      setCorrectAnswer("");
+      setAnswers([]);
     } else {
       setActiveQuestion(0);
       setShowResult(true);
@@ -61,17 +71,22 @@ const Quiz = () => {
         {!showResult ? (
           <div className="quiz-container">
             <h3>{questions[activeQuestion].question}</h3>
-            {answers.map((item, index) => (
-              <li
-                key={index}
-                onClick={() => onAnswerSelected(item, index)}
-                className={
-                  selectedAnswerIndex === index ? "li-selected" : "li-hover "
-                }
-              >
-                <span>{item}</span>
-              </li>
-            ))}
+            {answers.length > 0 ? (
+              answers.map((item, index) => (
+                <li
+                  key={index}
+                  onClick={() => onAnswerSelected(item, index)}
+                  className={
+                    selectedAnswerIndex === index ? "li-selected" : "li-hover "
+                  }
+                >
+                  <span>{item}</span>
+                </li>
+              ))
+            ) : (
+              <Loading count={4} />
+            )}
+
             {checked ? (
               <button className="btn" onClick={nextQuestion}>
                 {activeQuestion === questions.length - 1 ? "پایان" : "بعدی"}

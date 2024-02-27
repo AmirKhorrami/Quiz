@@ -13,7 +13,8 @@
     "node": "^21.6.2",
     "node.js": "^0.0.1-security",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-loading-skeleton": "^3.4.0"
   },
   "devDependencies": {
     "@types/node": "^20",

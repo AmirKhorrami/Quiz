@@ -1,5 +1,6 @@
 import {Vazirmatn} from 'next/font/google'
-import "./globals.css";
+import "./globals.css"; 
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const vazir = Vazirmatn({
   subsets: ['arabic', 'latin'],
