@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { quiz } from "../data";
 import Loading from "./loading";
 
@@ -17,12 +17,24 @@ const Quiz = () => {
     wrongAnswers: 0,
   });
   const { questions } = quiz;
+
   useEffect(() => {
-    setTimeout(() => {
-      setAnswers(questions[activeQuestion].answers);
-      setCorrectAnswer(questions[activeQuestion].correctAnswer);
-    }, 2000);
+    getData();
   }, [result]);
+
+  function getData() {
+    setAnswers(questions[activeQuestion].answers);
+    setCorrectAnswer(questions[activeQuestion].correctAnswer);
+  }
+
+  async function timeDelay() {
+    const delay = 1 + Math.floor(Math.random() * 5);
+    await timeOut(delay * 1000);
+  }
+  function timeOut(delay) {
+    return new Promise((time) => setTimeout(time, delay));
+  }
+
   const onAnswerSelected = (answer, index) => {
     setChecked(true);
     setSelectedAnswerIndex(index);
@@ -71,6 +83,19 @@ const Quiz = () => {
         {!showResult ? (
           <div className="quiz-container">
             <h3>{questions[activeQuestion].question}</h3>
+            {/* {answers.map((item, index) => (
+              <li
+                key={index}
+                onClick={() => onAnswerSelected(item, index)}
+                className={
+                  selectedAnswerIndex === index ? "li-selected" : "li-hover "
+                }
+              >
+                <Suspense fallback={<Loading count={1} />}>
+                  <span>{timeDelay().then(() => item)}</span>
+                </Suspense>
+              </li>
+            ))} */}
             {answers.length > 0 ? (
               answers.map((item, index) => (
                 <li
