@@ -1,7 +1,7 @@
 "use client";
-import { useState, useEffect, Suspense } from "react";
+import { useState } from "react";
 import { quiz } from "../data";
-import Loading from "./loading";
+import { QuizAnswers, QuizButtons, QuizResult } from "./components";
 
 const Quiz = () => {
   const [activeQuestion, setActiveQuestion] = useState(0);
@@ -41,8 +41,10 @@ const Quiz = () => {
     setSelectedAnswerIndex(index);
     if (answer === correctAnswer) {
       setSelectedAnswer(true);
+      console.log("true answer");
     } else {
       setSelectedAnswer(false);
+      console.log("false answer");
     }
   };
 
@@ -99,44 +101,20 @@ const Quiz = () => {
                 </Suspense>
               </li>
             ))} */}
-            {answers.length > 0 ? (
-              answers.map((item, index) => (
-                <li
-                  key={index}
-                  onClick={() => onAnswerSelected(item, index)}
-                  className={
-                    selectedAnswerIndex === index ? "li-selected" : "li-hover "
-                  }
-                >
-                  <span>{item}</span>
-                </li>
-              ))
-            ) : (
-              <Loading count={4} />
-            )}
-
-            {checked ? (
-              <button className="btn" onClick={nextQuestion}>
-                {activeQuestion === questions.length - 1 ? "پایان" : "بعدی"}
-              </button>
-            ) : (
-              <button className="btn-disabled" onClick={nextQuestion} disabled>
-                {activeQuestion === questions.length - 1 ? "پایان" : "بعدی"}
-              </button>
-            )}
+            <QuizAnswers
+              answers={answers}
+              onAnswerSelected={onAnswerSelected}
+              selectedAnswerIndex={selectedAnswerIndex}
+            />
+            <QuizButtons
+              checked={checked}
+              nextQuestion={nextQuestion}
+              activeQuestion={activeQuestion}
+              questions={questions}
+            />
           </div>
         ) : (
-          <div className="quiz-container">
-            <h3>نتایج</h3>
-            <h3>
-              به طور کلی به {(result.score / 25) * 100}% سوالات پاسخ داده شده
-            </h3>
-            <p>کل سوالات: {questions.length}</p>
-            <p>کل امتیازات: {result.score}</p>
-            <p>سوالات درست: {result.correctAnswers}</p>
-            <p>سوالات غلط: {result.wrongAnswers}</p>
-            <button onClick={() => window.location.reload()}>شروع مجدد</button>
-          </div>
+          <QuizResult questions={questions} result={result} />
         )}
       </div>
     </>
