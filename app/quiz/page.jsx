@@ -70,7 +70,7 @@ const Quiz = () => {
 
   // throw new Error();
   return (
-    <div className="container">
+    <>
       <h1>صفحه آزمون</h1>
       <div>
         {!showResult ? (
@@ -139,7 +139,7 @@ const Quiz = () => {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 
