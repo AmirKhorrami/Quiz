@@ -12,9 +12,8 @@ export const metadata = {
 };
 
 
-export default function RootLayout({
-  children,
-}) {
+export default function RootLayout({children}) {
+  // throw new Error()
   return (
     <html dir='rtl' lang="fa-IR" className={vazir.className}>
       <body>{children}</body>
