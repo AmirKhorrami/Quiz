@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import Link from "next/link";
 
 const QuizResult = ({ result, questions }) => {
   return (
@@ -9,7 +10,16 @@ const QuizResult = ({ result, questions }) => {
       <p>کل امتیازات: {result.score}</p>
       <p>سوالات درست: {result.correctAnswers}</p>
       <p>سوالات غلط: {result.wrongAnswers}</p>
-      <button onClick={() => window.location.reload()}>شروع مجدد</button>
+      <div className="flex justify-between">
+        <button className="w-[40%]" onClick={() => window.location.reload()}>
+          شروع مجدد
+        </button>
+        <Link className="w-[40%]" href="/">
+          <button>
+            بازگشت به صفجه اصلی
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };
